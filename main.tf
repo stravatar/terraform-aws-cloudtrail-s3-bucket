@@ -1,7 +1,6 @@
 
 module "access_log_label" {
-  source  = "cloudposse/label/null"
-  version = "0.25.0"
+  source  = "git::https://github.com/stravatar/terraform-null-label.git?ref=0.25.0"
 
   name = "cloudtrail-access-log"
 
@@ -9,8 +8,7 @@ module "access_log_label" {
 }
 
 module "s3_bucket" {
-  source  = "cloudposse/s3-log-storage/aws"
-  version = "0.26.0"
+  source  = "git::https://github.com/stravatar/terraform-aws-s3-log-storage.git?ref=0.28.0"
   enabled = module.this.enabled
 
   acl                                    = var.acl
@@ -43,8 +41,7 @@ module "s3_bucket" {
 }
 
 module "s3_access_log_bucket" {
-  source  = "cloudposse/s3-log-storage/aws"
-  version = "0.26.0"
+  source  = "git::https://github.com/stravatar/terraform-aws-s3-log-storage.git?ref=0.28.0"
   enabled = module.this.enabled && var.create_access_log_bucket
 
   acl                                    = var.acl

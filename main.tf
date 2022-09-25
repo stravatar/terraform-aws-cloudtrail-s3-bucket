@@ -8,7 +8,7 @@ module "access_log_label" {
 }
 
 module "s3_bucket" {
-  source  = "git::https://github.com/stravatar/terraform-aws-s3-log-storage.git?ref=0.28.0"
+  source  = "git::https://github.com/stravatar/terraform-aws-s3-log-storage.git?ref=0.29.0"
   enabled = module.this.enabled
 
   acl                                    = var.acl
@@ -41,7 +41,7 @@ module "s3_bucket" {
 }
 
 module "s3_access_log_bucket" {
-  source  = "git::https://github.com/stravatar/terraform-aws-s3-log-storage.git?ref=0.28.0"
+  source  = "git::https://github.com/stravatar/terraform-aws-s3-log-storage.git?ref=0.29.0"
   enabled = module.this.enabled && var.create_access_log_bucket
 
   acl                                    = var.acl
@@ -73,7 +73,7 @@ module "s3_access_log_bucket" {
 
 data "aws_iam_policy_document" "default" {
   count       = module.this.enabled ? 1 : 0
-  source_json = var.policy == "" ? null : var.policy
+  source_policy_documents = var.policy == "" ? null : [ var.policy ]
 
   statement {
     sid = "AWSCloudTrailAclCheck"
